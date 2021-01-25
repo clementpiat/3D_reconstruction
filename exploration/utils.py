@@ -2,14 +2,16 @@ import matplotlib.pyplot as plt
 import os
 import numpy as np
 
+obj="pig"
+
 def get_silhouette(number):
-    return plt.imread(os.path.join('../data/bird_data/silhouettes', f'{str(number).zfill(4)}.pgm')) == 0
+    return plt.imread(os.path.join(f'../data/{obj}_data/silhouettes', f'{str(number).zfill(4)}.pgm')) == 0
 
 def imread(number):
-    return plt.imread(os.path.join('../data/bird_data/images', f'{str(number).zfill(4)}.ppm'))
+    return plt.imread(os.path.join(f'../data/{obj}_data/images', f'{str(number).zfill(4)}.ppm'))
 
 def get_P(number):
-    return np.loadtxt(os.path.join('../data/bird_data/calib', f'{str(number).zfill(4)}.txt'), skiprows=1)
+    return np.loadtxt(os.path.join(f'../data/{obj}_data/calib', f'{str(number).zfill(4)}.txt'), skiprows=1)
 
 def read(number):
     return imread(number), get_P(number), get_silhouette(number)
