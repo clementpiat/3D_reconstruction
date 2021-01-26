@@ -1,6 +1,5 @@
 from utils import is_inside
 
-from scipy.optimize import minimize
 import numpy as np
 import cv2 as cv
 import matplotlib.pyplot as plt
@@ -14,13 +13,7 @@ def get_X(P1, P2, x1, x2):
         x2[1]*P2[2,:] - P2[1,:]
     ])
     
-    def fun(x):
-        x[-1] = 1
-        return np.sum((A @ x)**2)
-    
-    x0 = [0,0,0,1]
-    res = minimize(fun, x0)
-    return res.x
+    return - np.linalg.pinv(A[:,:3]) @ A[:,-1]
 
 def get_SIFT_keypoints(img, silhouette, n_keypoints_min=20, show=False):
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
