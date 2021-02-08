@@ -41,6 +41,9 @@ class Stereo:
                     best_x2 = [x, y, 1]
         if show:
             plt.plot(distances)
+            plt.xlabel("Position on the epipolar line")
+            plt.ylabel("Patch distance")
+            plt.title("Evolution of the patch distances on the epipolar line")
             plt.show()
             
         return best_x2

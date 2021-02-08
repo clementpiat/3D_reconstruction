@@ -5,6 +5,7 @@ import cv2 as cv
 import matplotlib.pyplot as plt
 import random as rd
 
+# X = (x,y,z,w) is a 3D-point
 def get_X(P1, P2, x1, x2):
     A = np.array([
         x1[0]*P1[2,:] - P1[0,:],

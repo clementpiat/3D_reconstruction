@@ -3,13 +3,13 @@ import os
 import numpy as np
 
 def get_silhouette(number, obj="bird"):
-    return plt.imread(os.path.join(f'../data/{obj}_data/silhouettes', f'{str(number).zfill(4)}.pgm')) == 0
+    return plt.imread(os.path.join(f'data/{obj}_data/silhouettes', f'{str(number).zfill(4)}.pgm')) == 0
 
 def imread(number, obj="bird"):
-    return plt.imread(os.path.join(f'../data/{obj}_data/images', f'{str(number).zfill(4)}.ppm'))
+    return plt.imread(os.path.join(f'data/{obj}_data/images', f'{str(number).zfill(4)}.ppm'))
 
 def get_P(number, obj="bird"):
-    return np.loadtxt(os.path.join(f'../data/{obj}_data/calib', f'{str(number).zfill(4)}.txt'), skiprows=1)
+    return np.loadtxt(os.path.join(f'data/{obj}_data/calib', f'{str(number).zfill(4)}.txt'), skiprows=1)
 
 def read(number, obj="bird"):
     return imread(number, obj), get_P(number, obj), get_silhouette(number, obj)
@@ -31,7 +31,6 @@ def scatter(x):
 def epipolar_y(x, l):
     return (-l[2] - l[0]*x)/l[1]
 
-
 def lie_matrix(v):
     M = np.zeros((3,3))
     M[0,1] = -v[2]
@@ -42,6 +41,7 @@ def lie_matrix(v):
     M[2,1] =  v[0]
     return M
 
+# Compute the fundamental matrix
 def compute_F(P1, P2):
     P1x_ = np.linalg.inv(P1[:,:3])
     return (lie_matrix(P2[:,-1]) - lie_matrix(P2[:,:3] @ P1x_ @ P1[:,-1])) @ P2[:,:3] @ P1x_
